@@ -1,18 +1,19 @@
-package benchmark;
+package benchmark.sparse;
 
-import matrix.mul.CSRMatrixMul.CSRMatrix;
+import matrix.mul.sparse.CSCMatrixMul;
+import matrix.mul.sparse.CSCMatrixMul.CSCMatrix;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.concurrent.TimeUnit;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
-public class CSRMatrixMulBenchmark {
+public class CSCMatrixMulBenchmark {
 
-    private CSRMatrix csrMatrixA;
-    private CSRMatrix csrMatrixB;
+    private CSCMatrix cscMatrixA;
+    private CSCMatrix cscMatrixB;
 
     @Param({"100", "500", "1024"})  // Define los tamaños de las matrices a probar
     private int matrixSize;
@@ -22,20 +23,19 @@ public class CSRMatrixMulBenchmark {
         double[][] matrixA = generateRandomSparseMatrix(matrixSize, matrixSize, 0.1);
         double[][] matrixB = generateRandomSparseMatrix(matrixSize, matrixSize, 0.1);
 
-        // Convertimos las matrices a formato CSR
-        csrMatrixA = matrix.mul.CSRMatrixMul.convertToCSR(matrixA);
-        csrMatrixB = matrix.mul.CSRMatrixMul.convertToCSR(matrixB);
+        // Convertimos las matrices a formato CSC
+        cscMatrixA = CSCMatrixMul.convertToCSC(matrixA);
+        cscMatrixB = CSCMatrixMul.convertToCSC(matrixB);
     }
 
     @Benchmark
     @Fork(1)
     @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    public CSRMatrix benchmarkCSRMultiplication() {
-        return csrMatrixA.multiply(csrMatrixB);
+    public CSCMatrix benchmarkCSCMultiplication() {
+        return cscMatrixA.multiply(cscMatrixB);
     }
 
-    // Método para generar una matriz dispersa aleatoria
     private double[][] generateRandomSparseMatrix(int rows, int cols, double sparsity) {
         double[][] matrix = new double[rows][cols];
         Random random = new Random();

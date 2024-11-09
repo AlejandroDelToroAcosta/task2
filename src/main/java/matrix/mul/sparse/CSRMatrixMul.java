@@ -1,4 +1,4 @@
-package matrix.mul;
+package matrix.mul.sparse;
 
 import java.util.ArrayList;
 import java.util.Arrays;

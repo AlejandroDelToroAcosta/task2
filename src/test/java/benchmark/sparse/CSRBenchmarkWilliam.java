@@ -1,7 +1,7 @@
-package benchmark;
+package benchmark.sparse;
 
-import matrix.mul.model.WilliamMatrixReader; // Importa MatrixReader desde matrixmultiplication
-import matrix.mul.CSRMatrixMul.CSRMatrix;
+import matrix.mul.sparse.CSRMatrixMul.CSRMatrix;
+import matrix.mul.model.WilliamMatrixReader;
 import org.openjdk.jmh.annotations.*;
 
 import java.io.IOException;

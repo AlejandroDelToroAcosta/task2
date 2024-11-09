@@ -2,7 +2,7 @@ package matrix.mul.model;
 
 import java.io.*;
 import java.util.*;
-import matrix.mul.CSRMatrixMul.CSRMatrix;
+import matrix.mul.sparse.CSRMatrixMul.CSRMatrix;
 
 public class WilliamMatrixReader {
     public static CSRMatrix loadMatrixFromMTX(String matrixFilePath) throws IOException {
