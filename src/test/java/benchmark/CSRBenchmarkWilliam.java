@@ -6,10 +6,12 @@ import org.openjdk.jmh.annotations.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
+@Warmup(iterations = 0)       // Configura para 0 iteraciones de calentamiento
+@Measurement(iterations = 1)  // Configura para 1 iteración de medición
+@Fork(1)                      // Configura para 1 solo fork
 public class CSRBenchmarkWilliam {
 
     private static CSRMatrix williamsMatrix;
@@ -21,9 +23,7 @@ public class CSRBenchmarkWilliam {
     }
 
     @Benchmark
-    @Warmup(iterations = 0)
-    @Measurement(iterations = 1)
     public void benchmarkMatrixMultiplication() {
-        System.out.println("Hola");
+        CSRMatrix resultMatrix = williamsMatrix.multiply(williamsMatrix);
     }
 }
